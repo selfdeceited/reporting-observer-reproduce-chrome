@@ -1,0 +1,43 @@
+<html>
+
+<head>
+    <title>ReportingObserver issue reproducing sandbox</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        function observerCallback(reports) {
+            console.warn({ reports })
+            reports.forEach(report => {
+                const reportHtml = document.createElement('p');
+                reportHtml.innerText = JSON.stringify(report, null, 2);
+                document
+                    .querySelector('article')
+                    .appendChild(reportHtml);
+            });
+        }
+        const observer = new ReportingObserver(observerCallback.bind(window), {
+            types: ["deprecation"],
+            buffered: false
+        });
+        observer.observe()
+        console.info('observer registered')
+
+        // to make sure callback is set correctly
+        // setInterval(() => observerCallback([{fake: 'report'}]), 3000);
+
+        function reproduce() {
+            console.info('on reproduce()')
+            // https://chromium.googlesource.com/chromium/src/+/8eac569dd8d418fdd8071be8b747e03df09308ed/third_party/WebKit/Source/core/frame/Deprecation.cpp#287
+            const webkitStorageInfo = window.webkitStorageInfo;
+
+            // https://chromium.googlesource.com/chromium/src/+/8eac569dd8d418fdd8071be8b747e03df09308ed/third_party/WebKit/Source/core/frame/Deprecation.cpp#346
+            new window.webkitURL('https://facebook.com');
+        }
+    </script>
+
+    <button onclick="reproduce(); return false">Reproduce</button>
+    <article></article>
+</body>
+
+</html>
