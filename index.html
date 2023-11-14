@@ -28,11 +28,10 @@
 
         function reproduce() {
             console.info('on reproduce()')
-            // https://chromium.googlesource.com/chromium/src/+/8eac569dd8d418fdd8071be8b747e03df09308ed/third_party/WebKit/Source/core/frame/Deprecation.cpp#287
-            const webkitStorageInfo = window.webkitStorageInfo;
-
-            // https://chromium.googlesource.com/chromium/src/+/8eac569dd8d418fdd8071be8b747e03df09308ed/third_party/WebKit/Source/core/frame/Deprecation.cpp#346
-            new window.webkitURL('https://facebook.com');
+            // https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/core/frame/deprecation/deprecation.json5;l=84
+            console.log(chrome.loadTimes())
+            // https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/core/frame/deprecation/deprecation.json5;l=568
+            speechSynthesis.speak(new SpeechSynthesisUtterance('this should work'));
         }
     </script>
 
