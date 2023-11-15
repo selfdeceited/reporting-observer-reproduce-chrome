@@ -29,10 +29,11 @@
         function reproduce() {
             console.info('on reproduce()')
             // https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/core/frame/deprecation/deprecation.json5;l=84
-            console.log(chrome.loadTimes())
-            // https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/core/frame/deprecation/deprecation.json5;l=568
-            speechSynthesis.speak(new SpeechSynthesisUtterance('this should work'));
+            console.log(chrome.loadTimes().connectionInfo)
+
         }
+        // https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/core/frame/deprecation/deprecation.json5;l=568
+        speechSynthesis.speak(new SpeechSynthesisUtterance('sorry for the voice :)'));
     </script>
 
     <button onclick="reproduce(); return false">Reproduce</button>
